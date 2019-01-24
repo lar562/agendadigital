@@ -1,5 +1,10 @@
 package br.com.iftm.entity;
 
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+//@Entity
+//@Table(name = "TB_TELEFONE")
 public class Telefone {
 
 	private Integer codigo;

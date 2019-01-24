@@ -1,7 +1,12 @@
 package br.com.iftm.entity;
 
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
 import br.com.iftm.entity.enus.Estado;
 
+//@Entity
+//@Table(name = "TB_CIDADE")
 public class Cidade {
 
 	private String nome;

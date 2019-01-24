@@ -2,8 +2,13 @@ package br.com.iftm.entity;
 
 import java.util.List;
 
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
 import br.com.iftm.entity.enus.TipoLogradouro;
 
+//@Entity
+//@Table(name = "TB_PRESTADORSERVICO")
 public class PrestadorServico {
 
 	private Integer codigo;
