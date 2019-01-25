@@ -1,7 +1,5 @@
 package br.com.iftm.controller;
 
-import java.util.List;
-import javax.websocket.server.PathParam;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -15,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import br.com.iftm.business.BusinessException;
 import br.com.iftm.business.PrestadorServicoBusiness;
-import br.com.iftm.business.impl.PrestadorServicoBusinessImpl;
+import br.com.iftm.controller.dto.FiltroPrestador;
 import br.com.iftm.entity.PrestadorServico;
 
 
@@ -26,6 +24,8 @@ public class PrestadorServicoRest {
 	@Autowired
 	private PrestadorServicoBusiness business;
 	
+	
+	//-------------------------CREAT-------------------------------------------------
 	@PostMapping()
 	public ResponseEntity<?> create (@RequestBody PrestadorServico prestadorServico){
 		
@@ -45,6 +45,7 @@ public class PrestadorServicoRest {
 		}
 	}
 	
+	//------------------------------------READ------------------------------------------
 	@GetMapping
 	public ResponseEntity<?> read(){
 		
@@ -64,6 +65,26 @@ public class PrestadorServicoRest {
 	}
 	
 	
+	@PostMapping("/filtros")
+	public ResponseEntity<?> readByFiltros(@RequestBody FiltroPrestador filtroPrestador){
+		
+		try {
+			
+			return ResponseEntity.ok(business.readByFiltros(filtroPrestador));
+			
+		} catch (BusinessException e) {
+			e.printStackTrace();
+			
+			return ResponseEntity.badRequest().body(e);
+		}catch (Exception e) {
+			e.printStackTrace();
+			
+			return ResponseEntity.badRequest().body(e);
+		}
+	}
+	
+	
+	//----------------------------------------UPDATE--------------------------------------
 	@PutMapping
 	public ResponseEntity<?> update(@RequestBody PrestadorServico prestacaoServico){
 		
@@ -83,6 +104,8 @@ public class PrestadorServicoRest {
 		}
 	}
 	
+	
+	//---------------------------------DELETE-----------------------------------
 	@DeleteMapping(value = "/{id}")
 	public ResponseEntity<?> delete(@PathVariable("id") Integer id){
 		

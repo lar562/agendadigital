@@ -10,6 +10,7 @@ import org.springframework.util.StringUtils;
 
 import br.com.iftm.business.BusinessException;
 import br.com.iftm.business.PrestadorServicoBusiness;
+import br.com.iftm.controller.dto.FiltroPrestador;
 import br.com.iftm.dao.PrestadorServicoDAO;
 import br.com.iftm.dao.impl.PrestadorServicoDAOImpl;
 import br.com.iftm.entity.Cidade;
@@ -24,6 +25,7 @@ public class PrestadorServicoBusinessImpl  implements PrestadorServicoBusiness{
 	@Autowired
 	private PrestadorServicoDAO dao;
 
+	//--------------------------------------CREATE--------------------------------------------
 	@Override
 	@Transactional(propagation = Propagation.REQUIRED) 
 	public PrestadorServico create(PrestadorServico prestadorServico) throws BusinessException {
@@ -90,17 +92,19 @@ public class PrestadorServicoBusinessImpl  implements PrestadorServicoBusiness{
 			}
 		}
 		
-		
-			
 		return dao.create(prestadorServico);
 	}
-
+	
+	
+	//----------------------------------READ--------------------------------------
 	@Override
 	@Transactional(readOnly = true)
 	public List<PrestadorServico> read() throws BusinessException {
 		return dao.read();
 	}
 
+	
+	//--------------------------------UPDATE-------------------------------------------------------
 	@Override
 	@Transactional(propagation = Propagation.REQUIRED)
 	public PrestadorServico update(PrestadorServico prestadorServico) throws BusinessException {
@@ -109,7 +113,7 @@ public class PrestadorServicoBusinessImpl  implements PrestadorServicoBusiness{
 			throw new BusinessException("Codigo Requerido!"); 
 		}
 		
-if(StringUtils.isEmpty(prestadorServico.getNome())) {
+		if(StringUtils.isEmpty(prestadorServico.getNome())) {
 			
 			throw new BusinessException("Nome Requerido!"); 
 		}
@@ -174,7 +178,9 @@ if(StringUtils.isEmpty(prestadorServico.getNome())) {
 		return dao.update(prestadorServico);
 	}
 
+	//--------------------------DELETE----------------------------------
 	@Override
+	@Transactional(propagation = Propagation.REQUIRED)
 	public void delete(Integer id) throws BusinessException {
 		
 		if(id == null) {
@@ -182,6 +188,14 @@ if(StringUtils.isEmpty(prestadorServico.getNome())) {
 		}
 		
 		dao.delete(id);
+	}
+
+
+	@Override
+	@Transactional(readOnly = true)
+	public List<PrestadorServico> readByFiltros(FiltroPrestador filtroPrestador) throws BusinessException {
+		
+		return dao.readByFiltros(filtroPrestador);
 	}
 	
 	
