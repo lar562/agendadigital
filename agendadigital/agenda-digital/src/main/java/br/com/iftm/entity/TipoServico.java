@@ -15,11 +15,13 @@ import javax.persistence.UniqueConstraint;
 @Table(name = "TB_TIPOSERVICO", schema = "ESTAGIO_EVERIS", uniqueConstraints = {
 		@UniqueConstraint(name = "UN_TIPO_SERVICO", columnNames = {"NOME_TIPOSERVICO"})
 })
-@SequenceGenerator(name = "SQ_TIPOSERVICO", sequenceName = "SQ_TIPOSERVICO", initialValue = 1, allocationSize = 1)
+@SequenceGenerator(name = "SQ_TIPOSERVICO", sequenceName = "SQ_TIPOSERVICO", initialValue = 1, allocationSize = 1,
+schema = "ESTAGIO_EVERIS")
 public class TipoServico {
 	
 	@Id
 	//GENERETEVALUE  vai alterar o valor da sequenci
+	@Column(name = "CODIGO_TIPOSERVICO")
 	@GeneratedValue(generator = "SQ_TIPOSERVICO", strategy = GenerationType.SEQUENCE)
 	private Integer codigo;
 	
@@ -27,6 +29,9 @@ public class TipoServico {
 	@Column(name = "NOME_TIPOSERVICO", nullable = false, length = 100) //existe para padronizar as coisas
 	private String nome;
 	
+	
+	
+	//------------------------------MÉTODOS GET AND SET---------------------------------------------
 	
 	public Integer getCodigo() {
 		return codigo;

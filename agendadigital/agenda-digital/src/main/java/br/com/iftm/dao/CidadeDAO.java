@@ -11,10 +11,7 @@ public interface CidadeDAO {
 	
 	List<Cidade> read() ;
 	
-	List<Cidade> readByName(String nome) ;
-	
 	Cidade update(Cidade cidade) ;
-	
 	
 	void delete(Integer id) ;
 

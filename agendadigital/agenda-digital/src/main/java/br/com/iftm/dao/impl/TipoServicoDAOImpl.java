@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -48,9 +49,10 @@ public class TipoServicoDAOImpl implements TipoServicoDAO{
 		
 		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(TipoServico.class);
 		
-		criteria.add(Restrictions.like("nome", nome).ignoreCase()); //IGNORECASE é para não ter problemas com a leitura 
+		criteria.add(Restrictions.like("nome", nome, MatchMode.ANYWHERE).ignoreCase()); //IGNORECASE é para não ter problemas com a leitura 
 		//caso o registro estiver escrito com letra maiúscula ou minúscula.
 		//RESTRICTIONS vai restringir a busca pelo nome do tipo do serviço.
+		//MATCHMODE ANYWHERE faz a busca com mais precisão do like, mas pode pesar sua consulta no BD
 		
 		return criteria.list();
 	}

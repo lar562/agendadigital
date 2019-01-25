@@ -71,28 +71,6 @@ public class CidadeRest {
 		}
 	}
 	
-	@GetMapping("/filtro/nome")
-	public ResponseEntity<?> readByname(@PathParam("nome") String nome){
-		
-		try {
-			
-			List<Cidade> readbyname = business.readByName(nome);
-			if(readbyname.isEmpty()) {
-				return ResponseEntity.notFound().build();
-			}
-			
-			return ResponseEntity.ok(readbyname);
-			
-		} catch (BusinessException e) {
-			e.printStackTrace();
-			
-			return ResponseEntity.badRequest().body(e);
-		}catch (Exception e) {
-			e.printStackTrace();
-			
-			return ResponseEntity.badRequest().body(e);
-		}	
-	}
 	
 	@GetMapping("/filtro/estado")
 	public ResponseEntity<?> readByEstado(@PathParam("estado") Estado estado){

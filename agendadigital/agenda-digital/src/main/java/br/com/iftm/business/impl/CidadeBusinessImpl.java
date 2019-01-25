@@ -2,23 +2,28 @@ package br.com.iftm.business.impl;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import br.com.iftm.business.BusinessException;
 import br.com.iftm.business.CidadeBusiness;
 import br.com.iftm.dao.CidadeDAO;
-import br.com.iftm.dao.impl.CidadeDAOImpl;
 import br.com.iftm.entity.Cidade;
 import br.com.iftm.entity.enus.Estado;
 
 @Service
+@Transactional
 public class CidadeBusinessImpl implements CidadeBusiness {
 
-	private CidadeDAO dao = new CidadeDAOImpl();
+	@Autowired
+	private CidadeDAO dao;
 	
 	//-----------------CREATE-------------------------------
 	@Override
+	@Transactional(propagation = Propagation.REQUIRED)
 	public Cidade create(Cidade cidade) throws BusinessException {
 
 		if(StringUtils.isEmpty(cidade.getNome())) {
@@ -38,23 +43,15 @@ public class CidadeBusinessImpl implements CidadeBusiness {
 	
 	//--------------------READ-------------------------------
 	@Override
+	@Transactional(readOnly = true)
 	public List<Cidade> read() throws BusinessException {
 		
 		return dao.read();
 	}
 
-	//---------------------READBYNAME-------------------------------------
+	//------------------READBYESTADO----------------------------------
 	@Override
-	public List<Cidade> readByName(String nome) throws BusinessException {
-		
-		if(StringUtils.isEmpty(nome)) {
-			
-			throw new BusinessException("Nome Requerido!"); 
-		}
-		return dao.readByName(nome);
-	}
-
-	@Override
+	@Transactional(readOnly = true)
 	public List<Cidade> readByEstado(Estado estado) throws BusinessException {
 		
 		if(estado == null) {
@@ -67,6 +64,7 @@ public class CidadeBusinessImpl implements CidadeBusiness {
 	
 	//--------------------------UPDATE------------------------------------
 	@Override
+	@Transactional(propagation = Propagation.REQUIRED)
 	public Cidade update(Cidade cidade) throws BusinessException {
 		
 		if(cidade.getCodigo() == null) {
@@ -89,6 +87,7 @@ public class CidadeBusinessImpl implements CidadeBusiness {
 	
 	//--------------------DELETE--------------------------------
 	@Override
+	@Transactional(propagation = Propagation.REQUIRED)
 	public void delete(Integer id) throws BusinessException {
 	
 		if(id == null) {

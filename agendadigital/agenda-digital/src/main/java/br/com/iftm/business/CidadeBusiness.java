@@ -11,8 +11,6 @@ public interface CidadeBusiness {
 	
 	List<Cidade> read() throws BusinessException;
 	
-	List<Cidade> readByName(String nome) throws BusinessException;
-	
 	Cidade update(Cidade cidade) throws BusinessException;
 	
 	void delete(Integer id) throws BusinessException;
